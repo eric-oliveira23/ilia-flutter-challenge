@@ -1,8 +1,7 @@
 import 'package:app/features/movie/list/movie_list_controller.dart';
 import 'package:core/core.dart';
-import 'package:design_system/widgets/cards/now_playing_card.dart';
+import 'package:design_system/widgets/tiles/now_playing_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:intl/intl.dart';
 import 'package:service/movie/entities/movie_entity.dart';
 import 'package:service/movie/entities/movie_list_type.dart';
@@ -75,7 +74,7 @@ class _MovieListPageState extends State<MovieListPage> {
                               itemCount: state.data?.length ?? 0,
                               itemBuilder: (context, index) {
                                 final MovieEntity movie = state.data![index];
-                                return NowPlayingMovieTile(
+                                return NowPlayingMovieListTile(
                                   title: movie.title,
                                   rating: movie.voteAverage.toStringAsFixed(2),
                                   posterPath: movie.posterPath,
