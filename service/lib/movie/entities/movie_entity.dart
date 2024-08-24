@@ -1,5 +1,6 @@
 import 'package:service/movie/entities/genre_entity.dart';
 import 'package:service/movie/entities/production_company_entity.dart';
+import 'package:service/movie/entities/spoken_language_entity.dart';
 
 class MovieEntity {
   final bool adult;
@@ -25,6 +26,7 @@ class MovieEntity {
   final bool video;
   final double voteAverage;
   final int voteCount;
+  final List<SpokenLanguageEntity>? spokenLanguages;
 
   MovieEntity({
     this.homepage,
@@ -39,6 +41,7 @@ class MovieEntity {
     this.runtime,
     this.status,
     this.tagline,
+    this.spokenLanguages,
     required this.adult,
     required this.id,
     required this.originalLanguage,

@@ -1,5 +1,6 @@
 import 'package:service/movie/adapter/genre_adapter.dart';
 import 'package:service/movie/adapter/production_company_adapter.dart';
+import 'package:service/movie/adapter/spoken_language_adapter.dart';
 import 'package:service/movie/entities/movie_entity.dart';
 
 class MovieAdapter {
@@ -24,6 +25,9 @@ class MovieAdapter {
       tagline: json['tagline'],
       homepage: json['homepage'],
       imdbId: json['imdb_id'],
+      spokenLanguages: json['spoken_languages'] != null
+          ? (json['spoken_languages'] as List).map((e) => SpokenLanguageAdapter.fromJson(e)).toList()
+          : null,
       genres: json['genres'] != null ? (json['genres'] as List).map((e) => GenreAdapter.fromJson(e)).toList() : null,
       productionCompanies: json['production_companies'] != null
           ? (json['production_companies'] as List).map((e) => ProductionCompanyAdapter.fromJson(e)).toList()

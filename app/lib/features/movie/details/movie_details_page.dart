@@ -1,5 +1,6 @@
 import 'package:app/features/movie/details/movie_details_controller.dart';
 import 'package:core/constant/env.dart';
+import 'package:core/util/context_x.dart';
 import 'package:design_system/design_system.dart';
 import 'package:design_system/widgets/common/tag.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +51,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: IconButton.filled(
                         style: IconButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.white.withOpacity(.5),
                           shape: const CircleBorder(),
                         ),
                         color: Colors.black,
@@ -63,7 +64,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         padding: const EdgeInsets.all(8.0),
                         child: IconButton.filledTonal(
                           style: IconButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: Colors.white.withOpacity(.5),
                             shape: const CircleBorder(),
                           ),
                           color: Colors.black,
@@ -76,18 +77,20 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
                       centerTitle: true,
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(state.data!.title, style: Theme.of(context).textTheme.headlineMedium),
-                        ],
+                      title: ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: context.screenSize.width / 1.5),
+                        child: Text(
+                          state.data!.title,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       background: Stack(
                         children: [
                           Align(
                             alignment: Alignment.topCenter,
                             child: Container(
-                              height: expandedHeight - collapsedHeight,
+                              height: expandedHeight - collapsedHeight - 20,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                   bottomLeft: Radius.circular(20),
@@ -114,6 +117,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(height: 16),
                             Row(
                               children: [
                                 Icon(Icons.star_rounded, color: Colors.amber),
@@ -123,13 +127,50 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                 ),
                               ],
                             ),
+                            SizedBox(height: 16),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: state.data?.genres?.map((e) => Tag(child: Text(e.name))).toList() ?? [],
+                                mainAxisSize: MainAxisSize.min,
+                                children: state.data?.genres
+                                        ?.map((e) => Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Tag(child: Text(e.name)),
+                                            ))
+                                        .toList() ??
+                                    [],
                               ),
                             ),
+                            SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Length', style: Theme.of(context).textTheme.titleMedium),
+                                    Text('${state.data!.runtime.toString()} minutes'),
+                                  ],
+                                ),
+                                SizedBox(width: 16),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Language', style: Theme.of(context).textTheme.titleMedium),
+                                    Text(state.data!.spokenLanguages?.first.name ?? ''),
+                                  ],
+                                ),
+                                SizedBox(width: 16),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Adult', style: Theme.of(context).textTheme.titleMedium),
+                                    Text('${state.data!.adult ? 'Yes' : 'No'}'),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 16),
                             Text(state.data!.title, style: Theme.of(context).textTheme.headlineMedium),
                             Text(state.data!.overview, style: Theme.of(context).textTheme.bodyMedium),
                             Text(state.data!.releaseDate, style: Theme.of(context).textTheme.bodySmall),
