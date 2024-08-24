@@ -1,6 +1,7 @@
 import 'package:app/features/movie/list/movie_list_states.dart';
 import 'package:core/controller/base_controller.dart';
 import 'package:core/core.dart';
+import 'package:service/movie/entities/movie_list_type.dart';
 import 'package:service/movie/repository/remote/now_playing/now_playing_repository.dart';
 
 class MovieListController extends BaseController<MovieListState> {
@@ -9,20 +10,42 @@ class MovieListController extends BaseController<MovieListState> {
   MovieListController() : super(MovieListState(isLoading: true)) {
     fetchMovies();
   }
+  Future<void> fetchMovies({bool loadMore = false}) async {
+    if (loadMore && !state.hasMore) return;
 
-  Future<void> fetchMovies() async {
-    final result = await repository.fetch(page: 1);
+    if (loadMore) {
+      update(state.copyWith(pageLoading: true));
+    } else {
+      update(state.copyWith(isLoading: true));
+    }
+
+    final result = await repository.fetch(page: state.currentPage);
 
     result.fold(
       (error) {
-        update(state.copyWith(exception: error, isLoading: false));
+        update(state.copyWith(exception: error, isLoading: false, pageLoading: false));
       },
-      (success) => update(
-        state.copyWith(
-          isLoading: false,
-          data: success,
-        ),
-      ),
+      (success) {
+        if (success.isEmpty) {
+          state.copyWith(hasMore: false);
+        } else {
+          final newData = loadMore ? [...?state.data, ...success] : success;
+          update(
+            state.copyWith(
+              isLoading: false,
+              pageLoading: false,
+              data: newData,
+              currentPage: state.currentPage + 1,
+            ),
+          );
+        }
+      },
     );
   }
+
+  void changeListType() => update(
+        state.copyWith(
+          listType: state.listType == MovieListType.list ? MovieListType.grid : MovieListType.list,
+        ),
+      );
 }

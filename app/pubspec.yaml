@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  flutter_animate: ^4.5.0
 
   # modules
 

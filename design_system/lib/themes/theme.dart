@@ -6,7 +6,7 @@ ThemeData lightTheme(BuildContext context) {
     brightness: Brightness.light,
     primaryColor: const Color(0xFF333333),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: 'Poppins',
     appBarTheme: AppBarTheme(
       color: Color(0xFFFFFFFF),
       centerTitle: true,
@@ -41,7 +41,7 @@ ThemeData lightTheme(BuildContext context) {
 ThemeData darkTheme(BuildContext context) {
   return ThemeData(
     brightness: Brightness.dark,
-    fontFamily: GoogleFonts.poppins().fontFamily,
+    fontFamily: 'Poppins',
     primaryColor: const Color(0xffFFFFFF),
     scaffoldBackgroundColor: const Color(0xff151515),
     textTheme: TextTheme(
