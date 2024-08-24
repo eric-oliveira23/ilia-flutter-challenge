@@ -1,3 +1,5 @@
+import 'package:service/movie/adapter/genre_adapter.dart';
+import 'package:service/movie/adapter/production_company_adapter.dart';
 import 'package:service/movie/entities/movie_entity.dart';
 
 class MovieAdapter {
@@ -5,7 +7,6 @@ class MovieAdapter {
     return MovieEntity(
       adult: json['adult'],
       backdropPath: json['backdrop_path'],
-      genreIds: json['genre_ids'] != null ? json['genre_ids'].cast<int>() : null,
       id: json['id'],
       originalLanguage: json['original_language'],
       originalTitle: json['original_title'],
@@ -17,6 +18,16 @@ class MovieAdapter {
       video: json['video'],
       voteAverage: json['vote_average'],
       voteCount: json['vote_count'],
+      revenue: json['revenue'],
+      runtime: json['runtime'],
+      status: json['status'],
+      tagline: json['tagline'],
+      homepage: json['homepage'],
+      imdbId: json['imdb_id'],
+      genres: json['genres'] != null ? (json['genres'] as List).map((e) => GenreAdapter.fromJson(e)).toList() : null,
+      productionCompanies: json['production_companies'] != null
+          ? (json['production_companies'] as List).map((e) => ProductionCompanyAdapter.fromJson(e)).toList()
+          : null,
     );
   }
 
@@ -24,7 +35,6 @@ class MovieAdapter {
     return {
       'adult': entity.adult,
       'backdrop_path': entity.backdropPath,
-      'genre_ids': entity.genreIds,
       'id': entity.id,
       'original_language': entity.originalLanguage,
       'original_title': entity.originalTitle,

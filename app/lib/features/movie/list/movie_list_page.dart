@@ -66,8 +66,9 @@ class _MovieListPageState extends State<MovieListPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text('Now Playing', style: Theme.of(context).textTheme.headlineMedium),
+                  SizedBox(height: 16),
                   AnimatedSwitcher(
-                    duration: Durations.medium1,
+                    duration: Durations.long3,
                     child: state.listType == MovieListType.list
                         ? ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),

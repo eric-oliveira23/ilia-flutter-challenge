@@ -117,9 +117,18 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             Row(
                               children: [
                                 Icon(Icons.star_rounded, color: Colors.amber),
-                                Text(state.data!.voteAverage.toStringAsFixed(2),
-                                    style: Theme.of(context).textTheme.titleMedium),
+                                Text(
+                                  state.data!.voteAverage.toStringAsFixed(2),
+                                  style: Theme.of(context).textTheme.titleMedium,
+                                ),
                               ],
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: state.data?.genres?.map((e) => Tag(child: Text(e.name))).toList() ?? [],
+                              ),
                             ),
                             Text(state.data!.title, style: Theme.of(context).textTheme.headlineMedium),
                             Text(state.data!.overview, style: Theme.of(context).textTheme.bodyMedium),
