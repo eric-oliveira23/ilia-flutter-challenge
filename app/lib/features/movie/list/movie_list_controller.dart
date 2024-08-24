@@ -1,6 +1,9 @@
+import 'package:app/features/movie/details/movie_details_page.dart';
 import 'package:app/features/movie/list/movie_list_states.dart';
 import 'package:core/controller/base_controller.dart';
 import 'package:core/core.dart';
+import 'package:core/util/context_x.dart';
+import 'package:flutter/material.dart';
 import 'package:service/movie/entities/movie_list_type.dart';
 import 'package:service/movie/repository/remote/now_playing/now_playing_repository.dart';
 
@@ -47,5 +50,9 @@ class MovieListController extends BaseController<MovieListState> {
         state.copyWith(
           listType: state.listType == MovieListType.list ? MovieListType.grid : MovieListType.list,
         ),
+      );
+
+  void onMovieTap(int id, BuildContext context) => context.toView(
+        MovieDetailsPage(id: id),
       );
 }

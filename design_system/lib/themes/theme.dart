@@ -6,65 +6,129 @@ ThemeData lightTheme(BuildContext context) {
     brightness: Brightness.light,
     primaryColor: const Color(0xFF333333),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
-    fontFamily: 'Poppins',
+    fontFamily: GoogleFonts.poppins().fontFamily,
     appBarTheme: AppBarTheme(
-      color: Color(0xFFFFFFFF),
-      centerTitle: true,
-      elevation: 0,
-      iconTheme: IconThemeData(color: Colors.black),
-    ),
-    textTheme: TextTheme(
-      bodyLarge: GoogleFonts.poppins(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        color: const Color(0xff333333),
-      ),
-      bodyMedium: GoogleFonts.poppins(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: const Color(0xff555555),
-      ),
-      titleLarge: GoogleFonts.poppins(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-        color: const Color(0xff333333),
-      ),
-      headlineMedium: GoogleFonts.poppins(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: const Color(0xff333333),
-      ),
-    ),
+        color: Color(0xFFFFFFFF),
+        centerTitle: true,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+        surfaceTintColor: Colors.white),
+    textTheme: lightTextTheme,
   );
 }
 
 ThemeData darkTheme(BuildContext context) {
   return ThemeData(
     brightness: Brightness.dark,
-    fontFamily: 'Poppins',
+    fontFamily: GoogleFonts.poppins().fontFamily,
     primaryColor: const Color(0xffFFFFFF),
     scaffoldBackgroundColor: const Color(0xff151515),
-    textTheme: TextTheme(
-      bodyLarge: GoogleFonts.poppins(
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-        color: const Color(0xffFFFFFF),
-      ),
-      bodyMedium: GoogleFonts.poppins(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: const Color(0xff767373),
-      ),
-      titleLarge: GoogleFonts.poppins(
-        fontSize: 18,
-        fontWeight: FontWeight.w700,
-        color: const Color(0xffFFFFFF),
-      ),
-      headlineMedium: GoogleFonts.poppins(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: const Color(0xffFFFFFF),
-      ),
-    ),
+    textTheme: darkTextTheme,
   );
 }
+
+final lightTextTheme = TextTheme(
+  bodyLarge: GoogleFonts.poppins(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xff333333),
+  ),
+  bodyMedium: GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: const Color(0xff555555),
+  ),
+  bodySmall: GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: const Color(0xff777777),
+  ),
+  titleLarge: GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xff333333),
+  ),
+  titleMedium: GoogleFonts.poppins(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xff444444),
+  ),
+  titleSmall: GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xff555555),
+  ),
+  headlineMedium: GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xff333333),
+  ),
+  headlineSmall: GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xff444444),
+  ),
+  displayMedium: GoogleFonts.poppins(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xff222222),
+  ),
+  displaySmall: GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xff333333),
+  ),
+);
+
+final darkTextTheme = TextTheme(
+  bodyLarge: GoogleFonts.poppins(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xfff1f1f1),
+  ),
+  bodyMedium: GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: const Color(0xffe1e1e1),
+  ),
+  bodySmall: GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: const Color(0xffc1c1c1),
+  ),
+  titleLarge: GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xfff1f1f1),
+  ),
+  titleMedium: GoogleFonts.poppins(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xffe1e1e1),
+  ),
+  titleSmall: GoogleFonts.poppins(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xffd1d1d1),
+  ),
+  headlineMedium: GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xfff1f1f1),
+  ),
+  headlineSmall: GoogleFonts.poppins(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: const Color(0xffe1e1e1),
+  ),
+  displayMedium: GoogleFonts.poppins(
+    fontSize: 24,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xfff1f1f1),
+  ),
+  displaySmall: GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xffe1e1e1),
+  ),
+);

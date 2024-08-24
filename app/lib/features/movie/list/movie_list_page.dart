@@ -1,5 +1,6 @@
 import 'package:app/features/movie/list/movie_list_controller.dart';
 import 'package:core/core.dart';
+import 'package:design_system/widgets/tiles/now_playing_grid_tile.dart';
 import 'package:design_system/widgets/tiles/now_playing_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -66,46 +67,49 @@ class _MovieListPageState extends State<MovieListPage> {
                 children: [
                   Text('Now Playing', style: Theme.of(context).textTheme.headlineMedium),
                   AnimatedSwitcher(
-                      duration: Durations.medium1,
-                      child: state.listType == MovieListType.list
-                          ? ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: state.data?.length ?? 0,
-                              itemBuilder: (context, index) {
-                                final MovieEntity movie = state.data![index];
-                                return NowPlayingMovieListTile(
-                                  title: movie.title,
-                                  rating: movie.voteAverage.toStringAsFixed(2),
-                                  posterPath: movie.posterPath,
-                                  overview: movie.overview,
-                                  releaseDate: DateFormat('dd/MM/yyyy').format(
-                                    DateTime.parse(movie.releaseDate),
-                                  ),
-                                );
-                              },
-                            )
-                          : GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: .6,
-                              ),
-                              itemCount: state.data?.length ?? 0,
-                              itemBuilder: (context, index) {
-                                final MovieEntity movie = state.data![index];
-                                return NowPlayingGridTile(
-                                  title: movie.title,
-                                  rating: movie.voteAverage.toStringAsFixed(2),
-                                  posterPath: movie.posterPath,
-                                  overview: movie.overview,
-                                  releaseDate: DateFormat('dd/MM/yyyy').format(
-                                    DateTime.parse(movie.releaseDate),
-                                  ),
-                                );
-                              },
-                            )),
+                    duration: Durations.medium1,
+                    child: state.listType == MovieListType.list
+                        ? ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: state.data?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final MovieEntity movie = state.data![index];
+                              return NowPlayingMovieListTile(
+                                onTap: () => _controller.onMovieTap(movie.id, context),
+                                title: movie.title,
+                                rating: movie.voteAverage.toStringAsFixed(2),
+                                posterPath: movie.posterPath,
+                                overview: movie.overview,
+                                releaseDate: DateFormat('dd/MM/yyyy').format(
+                                  DateTime.parse(movie.releaseDate),
+                                ),
+                              );
+                            },
+                          )
+                        : GridView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: .58,
+                            ),
+                            itemCount: state.data?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final MovieEntity movie = state.data![index];
+                              return NowPlayingGridTile(
+                                onTap: () => _controller.onMovieTap(movie.id, context),
+                                title: movie.title,
+                                rating: movie.voteAverage.toStringAsFixed(2),
+                                posterPath: movie.posterPath,
+                                overview: movie.overview,
+                                releaseDate: DateFormat('dd/MM/yyyy').format(
+                                  DateTime.parse(movie.releaseDate),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
                   if (state.pageLoading)
                     const Center(
                       child: CircularProgressIndicator(

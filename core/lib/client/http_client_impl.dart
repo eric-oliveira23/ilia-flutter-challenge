@@ -23,7 +23,9 @@ class HttpClientImpl implements HttpClient {
     } catch (e) {
       return HttpResponse.error(
         DefaultException(
-          message: kDebugMode ? 'Erro ao processar a requisição: $e' : "Um erro ocorreu ao realizar a ação.",
+          message: kDebugMode
+              ? 'An error occurred while processing the request: $e'
+              : "An error occurred while performing the action.",
         ),
       );
     }
