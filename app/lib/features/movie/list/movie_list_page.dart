@@ -42,7 +42,7 @@ class _MovieListPageState extends State<MovieListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Movies List'),
+        title: const Text('Ília Movies List'),
         actions: [
           IconButton(
             onPressed: () => setState(() => _controller.changeListType()),

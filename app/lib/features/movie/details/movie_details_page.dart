@@ -1,7 +1,9 @@
 import 'package:app/features/movie/details/movie_details_controller.dart';
+import 'package:app/features/movie/video/video_page.dart';
 import 'package:core/constant/env.dart';
 import 'package:core/util/context_x.dart';
 import 'package:design_system/design_system.dart';
+import 'package:design_system/widgets/common/element_shrinker.dart';
 import 'package:design_system/widgets/common/tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -240,43 +242,48 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                               itemBuilder: (context, i) {
                                 final video = state.videos[i];
 
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
-                                        child: CachedNetworkImage(
-                                          height: 80,
-                                          width: 100,
-                                          imageUrl: 'https://img.youtube.com/vi/${video.key}/mqdefault.jpg',
-                                          errorWidget: (context, url, error) => const Icon(
-                                            Icons.image_not_supported_outlined,
-                                            size: 50,
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      SizedBox(width: 10),
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          ConstrainedBox(
-                                            constraints: BoxConstraints(maxWidth: context.screenSize.width / 1.7),
-                                            child: Text(
-                                              video.name,
-                                              style: Theme.of(context).textTheme.bodyLarge,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                return ElementShrinker(
+                                  onTap: () => context.toView(
+                                    VideoPage(video: video),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(15),
+                                          child: CachedNetworkImage(
+                                            height: 80,
+                                            width: 100,
+                                            imageUrl: 'https://img.youtube.com/vi/${video.key}/mqdefault.jpg',
+                                            errorWidget: (context, url, error) => const Icon(
+                                              Icons.image_not_supported_outlined,
+                                              size: 50,
                                             ),
+                                            fit: BoxFit.fill,
                                           ),
-                                          Tag(
-                                            child: Text(video.type, style: Theme.of(context).textTheme.bodySmall),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                        ),
+                                        SizedBox(width: 10),
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            ConstrainedBox(
+                                              constraints: BoxConstraints(maxWidth: context.screenSize.width / 2),
+                                              child: Text(
+                                                video.name,
+                                                style: Theme.of(context).textTheme.bodyLarge,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            Tag(
+                                              child: Text(video.type, style: Theme.of(context).textTheme.bodySmall),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },
