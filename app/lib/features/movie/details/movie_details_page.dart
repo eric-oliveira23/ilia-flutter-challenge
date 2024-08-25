@@ -101,7 +101,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                               image: DecorationImage(
                                 colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
                                 image: CachedNetworkImageProvider(
-                                  '$imageBaseUrl/w500/${state.data!.posterPath}',
+                                  '$imageBaseUrl/w500/${state.data!.backdropPath}',
                                 ),
                                 fit: BoxFit.fill,
                               ),

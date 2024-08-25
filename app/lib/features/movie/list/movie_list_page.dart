@@ -1,5 +1,5 @@
 import 'package:app/features/movie/list/movie_list_controller.dart';
-import 'package:design_system/design_system.dart';
+import 'package:core/util/debouncer.dart';
 import 'package:design_system/widgets/common/not_found.dart';
 import 'package:design_system/widgets/shimmer/movie_list_shimmer.dart';
 import 'package:design_system/widgets/tiles/now_playing_grid_tile.dart';
@@ -19,6 +19,7 @@ class _MovieListPageState extends State<MovieListPage> {
   final _scrollController = ScrollController();
 
   final _searchTec = TextEditingController();
+  final _debouncer = Debouncer(milliseconds: 500);
 
   @override
   void initState() {
@@ -48,6 +49,7 @@ class _MovieListPageState extends State<MovieListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Ília Movies List'),
         actions: [
@@ -63,7 +65,7 @@ class _MovieListPageState extends State<MovieListPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: TextField(
                 controller: _searchTec,
                 decoration: InputDecoration(
@@ -80,6 +82,14 @@ class _MovieListPageState extends State<MovieListPage> {
                 onSubmitted: (query) {
                   _searchTec.text = query;
                   _movieListController.searchMovies(query);
+                },
+                onChanged: (query) {
+                  if (query.isEmpty) {
+                    _movieListController.fetchMovies();
+                    return;
+                  }
+
+                  _debouncer.run(() => _movieListController.searchMovies(query));
                 },
               ),
             ),
