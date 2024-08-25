@@ -1,7 +1,7 @@
+import 'package:app/features/movie/list/movie_list_controller.dart';
 import 'package:core/error/base_exception.dart';
 import 'package:core/state/base_state.dart';
 import 'package:service/movie/entities/movie_entity.dart';
-import 'package:service/movie/entities/movie_list_type.dart';
 
 class MovieListState extends BaseState<List<MovieEntity>> {
   final int currentPage;

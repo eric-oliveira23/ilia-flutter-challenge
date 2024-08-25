@@ -5,7 +5,6 @@ import 'package:design_system/widgets/tiles/now_playing_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:service/movie/entities/movie_entity.dart';
-import 'package:service/movie/entities/movie_list_type.dart';
 
 class MovieListPage extends StatefulWidget {
   const MovieListPage({super.key});

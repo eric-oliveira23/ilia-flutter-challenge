@@ -65,9 +65,7 @@ class NowPlayingGridTile extends StatelessWidget {
                   child: Text(
                     title,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                    style: Theme.of(context).textTheme.titleLarge,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

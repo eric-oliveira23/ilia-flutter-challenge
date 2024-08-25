@@ -4,7 +4,6 @@ import 'package:core/controller/base_controller.dart';
 import 'package:core/core.dart';
 import 'package:core/util/context_x.dart';
 import 'package:flutter/material.dart';
-import 'package:service/movie/entities/movie_list_type.dart';
 import 'package:service/movie/repository/remote/now_playing/now_playing_repository.dart';
 
 class MovieListController extends BaseController<MovieListState> {
@@ -56,3 +55,5 @@ class MovieListController extends BaseController<MovieListState> {
         MovieDetailsPage(id: id),
       );
 }
+
+enum MovieListType { list, grid }

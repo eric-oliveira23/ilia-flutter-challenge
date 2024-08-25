@@ -1,4 +1,0 @@
-enum MovieListType {
-  list,
-  grid,
-}

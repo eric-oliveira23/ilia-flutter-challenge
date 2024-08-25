@@ -176,12 +176,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                               ],
                             ),
                             SizedBox(height: 30),
-                            Text(state.data!.title, style: Theme.of(context).textTheme.headlineMedium),
+                            Text('Overview', style: Theme.of(context).textTheme.headlineMedium),
                             Text(state.data!.overview, style: Theme.of(context).textTheme.bodyMedium),
-                            Text(
-                              state.data!.voteAverage.toStringAsFixed(2),
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
                             SizedBox(height: 30),
                             Text('Production Companies', style: Theme.of(context).textTheme.titleMedium),
                             SizedBox(
@@ -237,6 +233,54 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             SizedBox(height: 30),
                             Text('Videos', style: Theme.of(context).textTheme.titleMedium),
                             SizedBox(height: 16),
+                            ListView.builder(
+                              itemCount: state.videos.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, i) {
+                                final video = state.videos[i];
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(15),
+                                        child: CachedNetworkImage(
+                                          height: 80,
+                                          width: 100,
+                                          imageUrl: 'https://img.youtube.com/vi/${video.key}/mqdefault.jpg',
+                                          errorWidget: (context, url, error) => const Icon(
+                                            Icons.image_not_supported_outlined,
+                                            size: 50,
+                                          ),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          ConstrainedBox(
+                                            constraints: BoxConstraints(maxWidth: context.screenSize.width / 1.7),
+                                            child: Text(
+                                              video.name,
+                                              style: Theme.of(context).textTheme.bodyLarge,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Tag(
+                                            child: Text(video.type, style: Theme.of(context).textTheme.bodySmall),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            )
                           ],
                         ),
                       ),
