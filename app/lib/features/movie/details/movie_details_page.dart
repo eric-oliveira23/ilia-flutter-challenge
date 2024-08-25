@@ -61,20 +61,20 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         onPressed: () => Navigator.pop(context),
                       ),
                     ),
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: IconButton.filledTonal(
-                          style: IconButton.styleFrom(
-                            backgroundColor: Colors.white.withOpacity(.5),
-                            shape: const CircleBorder(),
-                          ),
-                          color: Colors.black,
-                          icon: const Icon(Icons.bookmark_outline),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                    ],
+                    // actions: [
+                    //   Padding(
+                    //     padding: const EdgeInsets.all(8.0),
+                    //     child: IconButton.filledTonal(
+                    //       style: IconButton.styleFrom(
+                    //         backgroundColor: Colors.white.withOpacity(.5),
+                    //         shape: const CircleBorder(),
+                    //       ),
+                    //       color: Colors.black,
+                    //       icon: const Icon(Icons.bookmark_outline),
+                    //       onPressed: () => Navigator.pop(context),
+                    //     ),
+                    //   ),
+                    // ],
                     backgroundColor: Colors.white,
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
