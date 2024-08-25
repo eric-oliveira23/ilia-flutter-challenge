@@ -85,21 +85,24 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      background: Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          height: expandedHeight - collapsedHeight - 20,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(20),
-                            ),
-                            image: DecorationImage(
-                              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-                              image: CachedNetworkImageProvider(
-                                '$imageBaseUrl/w500/${state.data!.posterPath}',
+                      background: Hero(
+                        tag: state.data!.posterPath ?? "",
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          child: Container(
+                            height: expandedHeight - collapsedHeight - 20,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
                               ),
-                              fit: BoxFit.fill,
+                              image: DecorationImage(
+                                colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+                                image: CachedNetworkImageProvider(
+                                  '$imageBaseUrl/w500/${state.data!.posterPath}',
+                                ),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
@@ -155,7 +158,11 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Language', style: Theme.of(context).textTheme.titleMedium),
-                                    Text(state.data!.spokenLanguages?.first.name ?? ''),
+                                    Text(
+                                      state.data!.spokenLanguages?.isNotEmpty == true
+                                          ? state.data!.spokenLanguages?.first.name ?? 'Unknown'
+                                          : 'Unknown',
+                                    ),
                                   ],
                                 ),
                                 SizedBox(width: 30),

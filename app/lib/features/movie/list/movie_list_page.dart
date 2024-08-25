@@ -98,14 +98,17 @@ class _MovieListPageState extends State<MovieListPage> {
                             itemCount: state.data?.length ?? 0,
                             itemBuilder: (context, index) {
                               final MovieEntity movie = state.data![index];
-                              return NowPlayingGridTile(
-                                onTap: () => _controller.onMovieTap(movie.id, context),
-                                title: movie.title,
-                                rating: movie.voteAverage.toStringAsFixed(2),
-                                posterPath: movie.posterPath,
-                                overview: movie.overview,
-                                releaseDate: DateFormat('dd/MM/yyyy').format(
-                                  DateTime.parse(movie.releaseDate),
+                              return Hero(
+                                tag: movie.posterPath ?? "",
+                                child: NowPlayingGridTile(
+                                  onTap: () => _controller.onMovieTap(movie.id, context),
+                                  title: movie.title,
+                                  rating: movie.voteAverage.toStringAsFixed(2),
+                                  posterPath: movie.posterPath,
+                                  overview: movie.overview,
+                                  releaseDate: DateFormat('dd/MM/yyyy').format(
+                                    DateTime.parse(movie.releaseDate),
+                                  ),
                                 ),
                               );
                             },
