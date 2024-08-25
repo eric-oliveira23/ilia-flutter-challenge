@@ -14,6 +14,33 @@ ThemeData lightTheme(BuildContext context) {
         iconTheme: IconThemeData(color: Colors.black),
         surfaceTintColor: Colors.white),
     textTheme: lightTextTheme,
+    inputDecorationTheme: const InputDecorationTheme(
+      filled: true,
+      contentPadding: EdgeInsets.all(18),
+      outlineBorder: BorderSide(color: Color(0xFFEEEEEE)),
+      fillColor: Color(0xFFEEEEEE),
+      labelStyle: TextStyle(
+        color: Color(0xff79787D),
+        fontWeight: FontWeight.w400,
+      ),
+      border: OutlineInputBorder(
+        borderSide: BorderSide(color: Color(0xFFEEEEEE)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Color(0xFFEEEEEE)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Color(0xFFEEEEEE)),
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      hintStyle: TextStyle(
+        color: Color(0xFF59585E),
+      ),
+      alignLabelWithHint: false,
+      floatingLabelBehavior: FloatingLabelBehavior.never,
+    ),
   );
 }
 

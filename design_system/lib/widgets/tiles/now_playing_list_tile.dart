@@ -48,14 +48,14 @@ class NowPlayingMovieListTile extends StatelessWidget {
                       baseColor: Colors.white70,
                       highlightColor: Colors.white38,
                       child: Container(
-                        width: 90,
-                        height: 100,
+                        width: 70,
+                        height: 70,
                       ),
                     ),
                     errorWidget: (context, url, error) => Container(
                       child: const Icon(Icons.error),
-                      width: 90,
-                      height: 100,
+                      width: 70,
+                      height: 70,
                       color: Colors.grey.shade200,
                     ),
                   ),

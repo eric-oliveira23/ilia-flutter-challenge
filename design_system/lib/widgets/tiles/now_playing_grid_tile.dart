@@ -7,7 +7,7 @@ import 'package:shimmer/shimmer.dart';
 
 class NowPlayingGridTile extends StatelessWidget {
   final String title, rating, overview;
-  final String? posterPath, releaseDate;
+  final String? posterPath;
   final List<String>? genres;
   final VoidCallback? onTap;
 
@@ -17,7 +17,6 @@ class NowPlayingGridTile extends StatelessWidget {
     required this.rating,
     required this.overview,
     this.posterPath,
-    this.releaseDate,
     this.genres,
     this.onTap,
   });

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:core/client/http_client.dart';
 import 'package:core/client/http_response.dart';
 import 'package:core/client/request_data.dart';
@@ -10,19 +8,18 @@ import 'package:core/error/default_exception.dart';
 import 'package:core/type/output.dart';
 import 'package:service/movie/adapter/movie_adapter.dart';
 import 'package:service/movie/entities/movie_entity.dart';
+import 'package:service/movie/repository/remote/search/search_repository.dart';
 
-import 'now_playing_repository.dart';
-
-class MovieNowPlayingRepositoryImpl implements MovieNowPlayingRepository {
+class MovieSearchRepositoryImpl implements MovieSearchRepository {
   final client = GetIt.instance<HttpClient>();
 
   @override
-  Future<Output<List<MovieEntity>>> fetch({required int page}) async {
+  Future<Output<List<MovieEntity>>> fetch({required String query, required int page}) async {
     try {
       final HttpResponse<dynamic> response = await client.request(
         HttpRequestData(
           baseUrl: apiBaseUrl,
-          endpoint: '/movie/now_playing?page=$page&api_key=$apiKey',
+          endpoint: '/search/movie?query=$query&include_adult=false&language=en-US&page=$page&api_key=$apiKey',
           method: HttpMethod.get,
         ),
       );

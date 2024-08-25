@@ -1,4 +1,4 @@
-# melos_managed_dependency_overrides: core,service,design_system
+# melos_managed_dependency_overrides: core,design_system,service
 dependency_overrides:
   core:
     path: ..\\core

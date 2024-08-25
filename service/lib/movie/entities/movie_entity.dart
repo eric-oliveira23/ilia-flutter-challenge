@@ -17,7 +17,7 @@ class MovieEntity {
   final double popularity;
   final String? posterPath;
   final List<ProductionCompanyEntity>? productionCompanies;
-  final String releaseDate;
+  final String? releaseDate;
   final int? revenue;
   final int? runtime;
   final String? status;
@@ -42,13 +42,13 @@ class MovieEntity {
     this.status,
     this.tagline,
     this.spokenLanguages,
+    this.releaseDate,
     required this.adult,
     required this.id,
     required this.originalLanguage,
     required this.originalTitle,
     required this.overview,
     required this.popularity,
-    required this.releaseDate,
     required this.title,
     required this.video,
     required this.voteAverage,
