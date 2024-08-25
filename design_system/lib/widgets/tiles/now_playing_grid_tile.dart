@@ -42,6 +42,7 @@ class NowPlayingGridTile extends StatelessWidget {
                 child: Container(
                   width: 100,
                   height: 150,
+                  color: Colors.white38,
                 ),
               ),
               errorWidget: (context, url, error) => Container(

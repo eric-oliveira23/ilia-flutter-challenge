@@ -3,8 +3,8 @@ import 'package:app/features/movie/video/video_page.dart';
 import 'package:core/constant/env.dart';
 import 'package:core/util/context_x.dart';
 import 'package:design_system/design_system.dart';
-import 'package:design_system/widgets/common/element_shrinker.dart';
 import 'package:design_system/widgets/common/tag.dart';
+import 'package:design_system/widgets/tiles/movie_video_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -61,20 +61,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         onPressed: () => Navigator.pop(context),
                       ),
                     ),
-                    // actions: [
-                    //   Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: IconButton.filledTonal(
-                    //       style: IconButton.styleFrom(
-                    //         backgroundColor: Colors.white.withOpacity(.5),
-                    //         shape: const CircleBorder(),
-                    //       ),
-                    //       color: Colors.black,
-                    //       icon: const Icon(Icons.bookmark_outline),
-                    //       onPressed: () => Navigator.pop(context),
-                    //     ),
-                    //   ),
-                    // ],
                     backgroundColor: Colors.white,
                     flexibleSpace: FlexibleSpaceBar(
                       collapseMode: CollapseMode.pin,
@@ -90,24 +76,50 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                       background: Hero(
                         tag: state.data!.posterPath ?? "",
                         child: Align(
-                          alignment: Alignment.topCenter,
-                          child: Container(
-                            height: expandedHeight - collapsedHeight - 20,
-                            decoration: BoxDecoration(
+                            alignment: Alignment.topCenter,
+                            // child: Container(
+                            //   height: expandedHeight - collapsedHeight - 20,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.only(
+                            //       bottomLeft: Radius.circular(20),
+                            //       bottomRight: Radius.circular(20),
+                            //     ),
+                            //     image: DecorationImage(
+                            //       colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+                            //       image: CachedNetworkImageProvider(
+                            //         '$imageBaseUrl/w500/${state.data!.backdropPath}',
+                            //       ),
+                            //       fit: BoxFit.fill,
+                            //     ),
+                            //   ),
+                            // ),
+                            child: ClipRRect(
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(20),
                                 bottomRight: Radius.circular(20),
                               ),
-                              image: DecorationImage(
-                                colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-                                image: CachedNetworkImageProvider(
-                                  '$imageBaseUrl/w500/${state.data!.backdropPath}',
+                              child: Container(
+                                width: double.infinity,
+                                height: expandedHeight - collapsedHeight - 20,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
                                 ),
-                                fit: BoxFit.fill,
+                                child: CachedNetworkImage(
+                                  imageUrl: '$imageBaseUrl/w500/${state.data?.backdropPath}',
+                                  fit: BoxFit.fill,
+                                  placeholder: (context, url) => Container(
+                                    color: Colors.grey.shade300,
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Icon(
+                                    Icons.image_not_supported_outlined,
+                                    size: 80,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
+                            )),
                       ),
                     ),
                   ),
@@ -179,115 +191,94 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             ),
                             SizedBox(height: 30),
                             Text('Overview', style: Theme.of(context).textTheme.headlineMedium),
-                            Text(state.data!.overview, style: Theme.of(context).textTheme.bodyMedium),
-                            SizedBox(height: 30),
-                            Text('Production Companies', style: Theme.of(context).textTheme.titleMedium),
-                            SizedBox(
-                              height: 200,
-                              child: ListView.builder(
-                                itemCount: state.data!.productionCompanies!.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, i) {
-                                  final company = state.data!.productionCompanies![i];
-                                  return Tooltip(
-                                    message: company.name,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Container(
-                                        width: 130,
-                                        height: 130,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey.shade200,
-                                          borderRadius: BorderRadius.circular(30),
-                                        ),
-                                        padding: const EdgeInsets.all(8),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: CachedNetworkImage(
-                                                height: 80,
-                                                width: 80,
-                                                imageUrl: '$imageBaseUrl/w200/${company.logoPath ?? ""}',
-                                                errorWidget: (context, url, error) => const Icon(
-                                                  Icons.image_not_supported_outlined,
-                                                  size: 50,
-                                                ),
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
-                                            Text(
-                                              company.name,
-                                              style: Theme.of(context).textTheme.bodyMedium,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                            Text(
+                              state.data!.overview.isEmpty ? 'No overview found.' : state.data!.overview,
+                              style: Theme.of(context).textTheme.bodyMedium,
                             ),
                             SizedBox(height: 30),
-                            Text('Videos', style: Theme.of(context).textTheme.titleMedium),
-                            SizedBox(height: 16),
-                            ListView.builder(
-                              itemCount: state.videos.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, i) {
-                                final video = state.videos[i];
-
-                                return ElementShrinker(
-                                  onTap: () => context.toView(
-                                    VideoPage(video: video),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 10),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(15),
-                                          child: CachedNetworkImage(
-                                            height: 80,
-                                            width: 100,
-                                            imageUrl: 'https://img.youtube.com/vi/${video.key}/mqdefault.jpg',
-                                            errorWidget: (context, url, error) => const Icon(
-                                              Icons.image_not_supported_outlined,
-                                              size: 50,
-                                            ),
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                        SizedBox(width: 10),
-                                        Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            ConstrainedBox(
-                                              constraints: BoxConstraints(maxWidth: context.screenSize.width / 2),
-                                              child: Text(
-                                                video.name,
-                                                style: Theme.of(context).textTheme.bodyLarge,
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
+                            if (state.data!.productionCompanies!.isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Production Companies', style: Theme.of(context).textTheme.titleMedium),
+                                  SizedBox(
+                                    height: 200,
+                                    child: ListView.builder(
+                                      itemCount: state.data!.productionCompanies!.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, i) {
+                                        final company = state.data!.productionCompanies![i];
+                                        return Tooltip(
+                                          message: company.name,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Container(
+                                              width: 130,
+                                              height: 130,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey.shade200,
+                                                borderRadius: BorderRadius.circular(30),
+                                              ),
+                                              padding: const EdgeInsets.all(8),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: CachedNetworkImage(
+                                                      height: 80,
+                                                      width: 80,
+                                                      imageUrl: '$imageBaseUrl/w200/${company.logoPath ?? ""}',
+                                                      errorWidget: (context, url, error) => const Icon(
+                                                        Icons.image_not_supported_outlined,
+                                                        size: 50,
+                                                      ),
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    company.name,
+                                                    style: Theme.of(context).textTheme.bodyMedium,
+                                                    maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            Tag(
-                                              child: Text(video.type, style: Theme.of(context).textTheme.bodySmall),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
-                                );
-                              },
-                            )
+                                ],
+                              ),
+                            SizedBox(height: 30),
+                            if (state.videos.isNotEmpty)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Videos', style: Theme.of(context).textTheme.titleMedium),
+                                  SizedBox(height: 16),
+                                  ListView.builder(
+                                    itemCount: state.videos.length,
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, i) {
+                                      final video = state.videos[i];
+
+                                      return MovieVideoTile(
+                                        videoKey: video.key,
+                                        name: video.name,
+                                        type: video.type,
+                                        onTap: () => context.toView(
+                                          VideoPage(video: video),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       ),
