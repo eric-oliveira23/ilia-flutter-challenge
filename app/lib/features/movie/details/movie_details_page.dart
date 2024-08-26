@@ -66,60 +66,44 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                       collapseMode: CollapseMode.pin,
                       centerTitle: true,
                       title: ConstrainedBox(
-                        constraints: BoxConstraints(maxWidth: context.screenSize.width / 1.5),
-                        child: Text(
-                          state.data!.title,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                          constraints: BoxConstraints(maxWidth: context.screenSize.width / 1.5),
+                          child: Text(
+                            state.data!.title,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                            overflow: TextOverflow.ellipsis,
+                          )),
                       background: Hero(
                         tag: state.data!.posterPath ?? "",
                         child: Align(
-                            alignment: Alignment.topCenter,
-                            // child: Container(
-                            //   height: expandedHeight - collapsedHeight - 20,
-                            //   decoration: BoxDecoration(
-                            //     borderRadius: BorderRadius.only(
-                            //       bottomLeft: Radius.circular(20),
-                            //       bottomRight: Radius.circular(20),
-                            //     ),
-                            //     image: DecorationImage(
-                            //       colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-                            //       image: CachedNetworkImageProvider(
-                            //         '$imageBaseUrl/w500/${state.data!.backdropPath}',
-                            //       ),
-                            //       fit: BoxFit.fill,
-                            //     ),
-                            //   ),
-                            // ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
+                          alignment: Alignment.topCenter,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20),
+                            ),
+                            child: Container(
+                              width: double.infinity,
+                              height: expandedHeight - collapsedHeight - 20,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade300,
                               ),
-                              child: Container(
-                                width: double.infinity,
-                                height: expandedHeight - collapsedHeight - 20,
-                                decoration: BoxDecoration(
+                              child: CachedNetworkImage(
+                                imageUrl: '$imageBaseUrl/w500/${state.data?.backdropPath}',
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
                                   color: Colors.grey.shade300,
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                                 ),
-                                child: CachedNetworkImage(
-                                  imageUrl: '$imageBaseUrl/w500/${state.data?.backdropPath}',
-                                  fit: BoxFit.fill,
-                                  placeholder: (context, url) => Container(
-                                    color: Colors.grey.shade300,
-                                    child: Center(
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                  ),
-                                  errorWidget: (context, url, error) => Icon(
-                                    Icons.image_not_supported_outlined,
-                                    size: 80,
-                                  ),
+                                errorWidget: (context, url, error) => Icon(
+                                  Icons.image_not_supported_outlined,
+                                  size: 80,
                                 ),
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),

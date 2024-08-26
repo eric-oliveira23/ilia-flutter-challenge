@@ -1,4 +1,5 @@
 import 'package:app/features/movie/list/movie_list_controller.dart';
+import 'package:core/core.dart';
 import 'package:core/util/debouncer.dart';
 import 'package:design_system/widgets/common/not_found.dart';
 import 'package:design_system/widgets/shimmer/movie_list_shimmer.dart';
@@ -104,6 +105,7 @@ class _MovieListPageState extends State<MovieListPage> {
                   if (state.data?.isEmpty ?? true) return NotFoundWarning(message: 'No movies found');
 
                   return SingleChildScrollView(
+                    controller: _scrollController,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -122,12 +124,18 @@ class _MovieListPageState extends State<MovieListPage> {
                                   itemCount: state.data?.length ?? 0,
                                   itemBuilder: (context, index) {
                                     final MovieEntity movie = state.data![index];
+
                                     return NowPlayingMovieListTile(
                                       onTap: () => _movieListController.onMovieTap(movie.id, context),
                                       title: movie.title,
                                       rating: movie.voteAverage.toStringAsFixed(2),
                                       posterPath: movie.posterPath,
                                       overview: movie.overview,
+                                      releaseDate: movie.releaseDate?.isEmpty ?? true
+                                          ? ''
+                                          : DateFormat.yMMMd().format(
+                                              DateTime.parse(movie.releaseDate ?? ""),
+                                            ),
                                     );
                                   },
                                 )
@@ -141,6 +149,7 @@ class _MovieListPageState extends State<MovieListPage> {
                                   itemCount: state.data?.length ?? 0,
                                   itemBuilder: (context, index) {
                                     final MovieEntity movie = state.data![index];
+
                                     return Hero(
                                       tag: movie.posterPath ?? "",
                                       child: NowPlayingGridTile(
@@ -154,18 +163,18 @@ class _MovieListPageState extends State<MovieListPage> {
                                   },
                                 ),
                         ),
+                        if (_movieListController.state.pageLoading && state.hasMore)
+                          const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.black,
+                            ),
+                          ),
                       ],
                     ),
                   );
                 },
               ),
             ),
-            if (_movieListController.state.pageLoading)
-              const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                ),
-              ),
           ],
         ),
       ),

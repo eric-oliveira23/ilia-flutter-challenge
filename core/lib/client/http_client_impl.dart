@@ -8,6 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class HttpClientImpl implements HttpClient {
+  final http.Client client;
+
+  HttpClientImpl({http.Client? client}) : client = client ?? http.Client();
+
   @override
   Future<HttpResponse<Map<String, dynamic>>> request(HttpRequestData requestData) async {
     try {
@@ -33,40 +37,21 @@ class HttpClientImpl implements HttpClient {
 
   Map<String, String> _buildHeaders(Map<String, String>? requestHeaders) {
     final defaultHeaders = {'Content-Type': 'application/json'};
-
     return {...defaultHeaders, ...?requestHeaders};
   }
 
   Future<http.Response> _sendHttpRequest(HttpRequestData requestData, Uri uri, Map<String, String> headers) {
     switch (requestData.method) {
       case HttpMethod.put:
-        return http.put(
-          uri,
-          headers: headers,
-          body: json.encode(requestData.body),
-        );
+        return client.put(uri, headers: headers, body: json.encode(requestData.body));
       case HttpMethod.get:
-        return http.get(
-          uri,
-          headers: headers,
-        );
+        return client.get(uri, headers: headers);
       case HttpMethod.post:
-        return http.post(
-          uri,
-          headers: headers,
-          body: json.encode(requestData.body),
-        );
+        return client.post(uri, headers: headers, body: json.encode(requestData.body));
       case HttpMethod.delete:
-        return http.delete(
-          uri,
-          headers: headers,
-        );
+        return client.delete(uri, headers: headers);
       case HttpMethod.patch:
-        return http.patch(
-          uri,
-          headers: headers,
-          body: json.encode(requestData.body),
-        );
+        return client.patch(uri, headers: headers, body: json.encode(requestData.body));
       default:
         throw ArgumentError('Invalid HTTP method');
     }
