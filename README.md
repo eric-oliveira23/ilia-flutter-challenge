@@ -206,6 +206,14 @@ Os adapters recebem um Map e devem retornar entity, podem existir também adapte
 
 As keys de desenvolvimento estão em `dev.env`
 
+Crie um arquivo `.env` na raiz do projeto e adicione-o à raiz de `app/`, seguindo o padrão de `dev.env`.
+
+```env
+BASE_URL=YOUR_TMDB_BASE_URL
+IMAGE_BASE_URL=YOUR_TMDB_IMAGE_BASE_URL
+API_KEY=YOUR_TMDB_API_KEY
+```
+
 Para usar a key: `String.fromEnvironment(CHAVE_DA_VARIAVEL);`
 
 
@@ -414,7 +422,7 @@ Create a `.env` file in the root of the project and add it to the root of `app/`
 ```env
 BASE_URL=YOUR_TMDB_BASE_URL
 IMAGE_BASE_URL=YOUR_TMDB_IMAGE_BASE_URL
-API_KEY=c081c7bbb4738dd60253de1b5208e70f
+API_KEY=YOUR_TMDB_API_KEY
 ```
 
 To use the key: `String.fromEnvironment(KEY_VARIABLE);`
