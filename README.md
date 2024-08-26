@@ -70,10 +70,17 @@ Integrar a funcionalidade para assistir aos trailers dos filmes disponíveis dir
 
 - Certifique-se de que sua versão do flutter seja >= 3.24.0
 
+Instale o melos: https://melos.invertase.dev/getting-started
+Execute:
+
+```sh
+melos bootstrap
+```
 
 ```dart
 https://github.com/eric-oliveira23/ilia-flutter-challenge.git
 ```
+
 
 #### Instalando manualmente
 
@@ -281,6 +288,13 @@ Integrate the functionality to watch movie trailers directly within the app.
 - Make sure your Dart version is >= 3.5.0
 
 - Make sure your Flutter version is >= 3.24.0
+
+Install melos: https://melos.invertase.dev/getting-started
+Run
+
+```sh
+melos bootstrap
+```
 
 ```dart
 git clone https://github.com/eric-oliveira23/ilia-flutter-challenge.git
